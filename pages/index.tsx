@@ -26,7 +26,7 @@ export default function Home() {
         <NotesCard />
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Axiom Note App ©2018 Created by Subhash Raj </Footer>
+      <Footer style={{ textAlign: 'center' }}>Axiom Note App ©2020 Created by Subhash Raj </Footer>
     </Layout>
   )
 }
