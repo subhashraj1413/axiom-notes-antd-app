@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
     }
   }, []);
   const [state, setState] = useState<AppContext>(
-    appData ?? { notes: [], drawerOpen: false, currentNote: null }
+    appData ?? { notes: [], drawerOpen: false, currentNote: null, filterTags: [] }
   );
 
   useEffect(() => {
@@ -29,10 +29,10 @@ export default function MyApp({ Component, pageProps }) {
       value={{
         state,
         setState: (state) => {
-          setState(appState => {
+          setState((appState) => {
             let appData = state;
-         
-            if (typeof state === 'function') {
+
+            if (typeof state === "function") {
               appData = state(appState);
             }
             return {
@@ -54,7 +54,7 @@ export default function MyApp({ Component, pageProps }) {
  * @returns {boolean}
  */
 export function isObject(item) {
-  return (item && typeof item === 'object' && !Array.isArray(item));
+  return item && typeof item === "object" && !Array.isArray(item);
 }
 
 /**

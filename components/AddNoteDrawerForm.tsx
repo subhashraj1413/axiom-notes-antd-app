@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import {
   Drawer,
   Form,
@@ -16,6 +16,7 @@ import { getTags } from "../utils/tags";
 import { FormInstance } from "antd/lib/form";
 
 const { Option } = Select;
+const { Search } = Input;
 
 export function AddNoteDrawerForm() {
   const { setState: setGlobalState, state: appState } = useContext(appContext);
@@ -77,7 +78,7 @@ export function AddNoteDrawerForm() {
     formRef.current.resetFields();
     onClose();
   }
-
+  
   return (
     <>
       <PageHeader
@@ -90,12 +91,51 @@ export function AddNoteDrawerForm() {
             key="add-note"
             className="site-button"
             onClick={showDrawer}
-            style={{ float: "right"}}
+            style={{ float: "right" }}
           >
             <PlusOutlined /> New Note
           </Button>,
         ]}
-      ></PageHeader>
+      >
+        <Row gutter={16}>
+          <Col xs={24} lg={12} xl={12}>
+            <Search
+              placeholder="Search note"
+              enterButton="Search"
+              size="large"
+              allowClear
+              onSearch={(value) =>
+                setGlobalState({
+                  searchText: value,
+                })
+              }
+            />
+          </Col>
+
+          <Col xs={24} lg={12} xl={12}>
+            <Select
+              mode="multiple"
+              style={{ width: "100%" }}
+              placeholder="Filter By Tags"
+              size="large"
+              onChange={(value)=>{
+                setGlobalState({
+                  filterTags: value,
+                })
+              }}
+            >
+              {appState &&
+                getTags(appState).map((res) => {
+                  return (
+                    <Option key={res} value={res}>
+                      {res}
+                    </Option>
+                  );
+                })}
+            </Select>
+          </Col>
+        </Row>
+      </PageHeader>
       <Drawer
         title="Create a New Note"
         width={320}
@@ -123,10 +163,7 @@ export function AddNoteDrawerForm() {
 
           <Row gutter={16}>
             <Col span={24}>
-              <Form.Item
-                name="content"
-                label="Content"                
-              >
+              <Form.Item name="content" label="Content">
                 <Input.TextArea rows={4} placeholder="Please enter content" />
               </Form.Item>
             </Col>
@@ -134,11 +171,7 @@ export function AddNoteDrawerForm() {
 
           <Row gutter={16}>
             <Col span={24}>
-              <Form.Item
-                name="tags"
-                label="Tags"
-               
-              >
+              <Form.Item name="tags" label="Tags">
                 <Select
                   mode="tags"
                   style={{ width: "100%" }}
@@ -168,7 +201,12 @@ export function AddNoteDrawerForm() {
                 <Button onClick={onClose} style={{ marginRight: 16 }}>
                   Cancel
                 </Button>
-                <Button htmlType="submit" className="site-button"  style={{ width: 100 }} type="primary">
+                <Button
+                  htmlType="submit"
+                  className="site-button"
+                  style={{ width: 100 }}
+                  type="primary"
+                >
                   Save
                 </Button>
               </div>
