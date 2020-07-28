@@ -2,7 +2,7 @@
 
 Notes lets you create, edit and delete notes. You may also add or delete tags for each note.
 
-*Technical description: This Application Server-Side Rendering (SSR) built with ReactJS,Next js and And design*
+*Technical description: This Application Server-Side Rendering (SSR) built with ReactJS,Next js and Ant design*
 
 ## How to use
 
